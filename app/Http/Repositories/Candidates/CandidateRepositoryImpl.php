@@ -4,10 +4,19 @@ namespace App\Http\Repositories\Candidates;
 
 use App\Http\DataTransferObjects\Candidates\CandidateData;
 use App\Models\Candidate;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class CandidateRepositoryImpl implements CandidateRepository
 {
+    /**
+     * @return Collection|array
+     */
+    public function getAll(): Collection|array
+    {
+        return Candidate::all();
+    }
+
     /**
      * @param int $id
      * @return Candidate|Model|null
