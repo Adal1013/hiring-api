@@ -8,6 +8,8 @@ use App\Http\Repositories\Candidates\CandidateRepository;
 use App\Http\Repositories\Candidates\CandidateRepositoryImpl;
 use App\Http\Services\Auth\AuthService;
 use App\Http\Services\Auth\AuthServiceImpl;
+use App\Http\Services\Candidates\CandidateService;
+use App\Http\Services\Candidates\CandidateServiceImpl;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Services
         $this->app->bind(AuthService::class, AuthServiceImpl::class);
+        $this->app->bind(CandidateService::class, CandidateServiceImpl::class);
     }
 
     /**
