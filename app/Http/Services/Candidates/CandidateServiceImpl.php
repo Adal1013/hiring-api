@@ -6,6 +6,7 @@ use App\Exceptions\GeneralException;
 use App\Http\DataTransferObjects\Candidates\CandidateData;
 use App\Http\Repositories\Candidates\CandidateRepository;
 use App\Models\Candidate;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -18,6 +19,14 @@ class CandidateServiceImpl implements CandidateService
      */
     public function __construct(protected CandidateRepository $candidateRepository)
     {
+    }
+
+    /**
+     * @return Collection|array
+     */
+    public function getAll(): Collection|array
+    {
+        return $this->candidateRepository->getAll();
     }
 
     /**

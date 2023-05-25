@@ -31,6 +31,19 @@ class CandidateServiceTest extends TestCase
      *
      * @return void
      */
+    public function test_get_all()
+    {
+        Candidate::factory(10)->create();
+        $candidates = $this->candidateService->getAll();
+        $this->assertCount(10, $candidates);
+        $this->assertContainsOnlyInstancesOf(Candidate::class, $candidates);
+    }
+
+    /**
+     * A basic unit test example.
+     *
+     * @return void
+     */
     public function test_get_by_id()
     {
         $candidate = Candidate::factory()->create();
