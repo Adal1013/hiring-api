@@ -23,6 +23,7 @@ class CandidateRepositoryTest extends TestCase
     {
         parent::setUp();
         $this->candidateRepository = app(CandidateRepository::class);
+        $this->seed(RoleTableSeeder::class);
     }
 
     /**
@@ -32,7 +33,6 @@ class CandidateRepositoryTest extends TestCase
      */
     public function test_get_by_id()
     {
-        $this->seed(RoleTableSeeder::class);
         $candidate = Candidate::factory()->create();
         $foundCandidate = $this->candidateRepository->getById($candidate->id);
         $this->assertEquals($candidate->id, $foundCandidate->id);
@@ -45,7 +45,6 @@ class CandidateRepositoryTest extends TestCase
      */
     public function test_save()
     {
-        $this->seed(RoleTableSeeder::class);
         $creator = User::factory()->create();
         $owner = User::factory()->create();
         $cadidateData = [

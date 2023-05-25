@@ -8,6 +8,9 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthServiceImpl implements AuthService
 {
+    /**
+     * @param AuthRepository $authRepository
+     */
     public function __construct(protected AuthRepository $authRepository)
     {
     }
