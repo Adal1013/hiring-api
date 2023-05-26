@@ -14,7 +14,7 @@ echo ''
 echo '----- copy .env '
 echo ''
 
-cp .env.local .env
+cp .env.example .env
 
 echo ''
 echo '----- composer install | permissions'
@@ -29,6 +29,12 @@ echo '----- Generate Key'
 echo ''
 
 docker exec hiring-api php artisan key:generate
+
+echo ''
+echo '----- Generate secret'
+echo ''
+
+docker exec hiring-api php artisan jwt:secret
 
 echo ''
 echo '----- Run Migrations'
