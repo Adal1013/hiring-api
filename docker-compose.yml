@@ -23,10 +23,14 @@ services:
                     - local.hiring-db
 
     hiring-redis:
-        container_name: hiring-redis
         image: redis:5.0
-        expose:
-            - 6379
+        container_name: hiring-redis
+        ports:
+            - "6379:6379"
+        networks:
+            hiring-private-net:
+                aliases:
+                    - local.hiring-api
         volumes:
             - redis-data:/data
 
