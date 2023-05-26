@@ -23,23 +23,23 @@ Esta API permite gestionar un sistema de reclutamiento, en la cual se pueden cre
     cd hiring-api
     ```
 
-2. Una vez estes dentro de la raiz del proyecto (hiring-api) ejecuta una unica vez el siguiente comando:
+2. Una vez estas dentro de la raíz del proyecto (hiring-api) ejecuta una única vez el siguiente comando:
 
     ```sh
     sh setup-local.sh
     ```
 
-3. Ya con esto tendrás el proyecto corriendo en tu máquina local en el puerto :8001. Si deseas ejecutar las pruebas lo puedes hacer desde la consola con el siguiente comando:
+3. Ya con esto tendrás el proyecto corriendo en tu máquina local en el puerto:8001. Si deseas ejecutar las pruebas lo puedes hacer desde la consola con el siguiente comando:
 
     ```sh
     docker exec -it hiring-api php artisan test
     ```
     
-4. Puedes ingresar a la documentación de la API y hacer pruebas desde allí, a traves de la siguiente ruta: `http://localhost:8001/api/documentation`
+4. Puedes ingresar a la documentación de la API y hacer pruebas desde allí, a través de la siguiente ruta: http://localhost:8001/api/documentation
     
-5. En la carpeta insomnia que se encuentra sobre la raiz del proyecto encontraras una coleción para importar en insomnia.
+5. En la carpeta insomnia que se encuentra sobre la raíz del proyecto encontraras una coleción para importar en insomnia.
 
-6. Dado que el setup-local.sh se ejecuta la primera vez solamente, siempre que desees iniciar el proyecto nuevamente lo puedos hacer a traves del archivo start-local.sh, desde tu consola ejectuta el siguiente comando: 
+6. Dado que el setup-local.sh se ejecuta la primera vez solamente, siempre que desees iniciar el proyecto nuevamente lo puedes hacer a traves del archivo start-local.sh, desde tu consola ejecuta el siguiente comando: 
 
     ```sh
     sh start-local.sh
