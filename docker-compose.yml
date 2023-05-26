@@ -40,7 +40,6 @@ services:
             dockerfile: Dockerfile
         restart: unless-stopped
         container_name: hiring-api
-        command: [ "php", "artisan", "serve", "--host=0.0.0.0", "--port=8000" ]
         tty: true
         user: root
         volumes:
