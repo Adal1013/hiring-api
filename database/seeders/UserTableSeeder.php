@@ -21,16 +21,19 @@ class UserTableSeeder extends Seeder
                 'username' => 'adal123',
                 'is_active' => 1,
                 'role' => 'manager',
+                'password' => bcrypt('hiring'),
             ],
             [
                 'username' => 'jose123',
                 'is_active' => 1,
                 'role' => 'agent',
+                'password' => bcrypt('hiring'),
             ],
             [
                 'username' => 'italo123',
                 'is_active' => 0,
                 'role' => 'agent',
+                'password' => bcrypt('hiring'),
             ],
         ];
         foreach ($users as $user) {
