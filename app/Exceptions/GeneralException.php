@@ -30,7 +30,7 @@ class GeneralException extends Exception
             [
                 "meta" => [
                     'success' => false,
-                    'errors' => $this->message
+                    'errors' => [$this->message]
                 ]
             ],
             $this->code
