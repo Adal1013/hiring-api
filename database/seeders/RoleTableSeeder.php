@@ -17,11 +17,5 @@ class RoleTableSeeder extends Seeder
     {
         Role::create(['name' => 'manager', 'guard_name' => 'api',]);
         Role::create(['name' => 'agent', 'guard_name' => 'api',]);
-        Permission::create(['name' => 'create candidates', 'guard_name' => 'api',]);
-        Permission::create(['name' => 'view all candidates', 'guard_name' => 'api',]);
-        Permission::create(['name' => 'view assigned candidates', 'guard_name' => 'api',]);
-        Role::findByName('manager', 'api')->givePermissionTo('create candidates');
-        Role::findByName('manager', 'api')->givePermissionTo('view all candidates');
-        Role::findByName('agent', 'api')->givePermissionTo('view assigned candidates');
     }
 }
