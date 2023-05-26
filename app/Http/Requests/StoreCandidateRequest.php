@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Exceptions\GeneralException;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCandidateRequest extends FormRequest
@@ -28,5 +30,18 @@ class StoreCandidateRequest extends FormRequest
             'source' => 'required|string|max:50',
             'owner' => 'required|exists:users,id'
         ];
+    }
+
+    /**
+     * Handle a failed validation attempt.
+     *
+     * @param Validator $validator
+     * @return void
+     *
+     * @throws GeneralException
+     */
+    protected function failedValidation(Validator $validator): void
+    {
+        throw new GeneralException($validator->errors(), 422);
     }
 }
