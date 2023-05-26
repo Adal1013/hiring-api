@@ -31,7 +31,7 @@ class AuthServiceImpl implements AuthService
         }
 
 
-        $minutesToExpire = JWTAuth::factory()->getTTL() * 60;
+        $minutesToExpire = JWTAuth::factory()->getTTL();
 
         return [
             'success' => true,

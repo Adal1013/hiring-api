@@ -33,7 +33,7 @@ class AuthControllerTest extends TestCase
             ],
             'data' => [
                 'token' => true,
-                'minutes_to_expire' => 3600
+                'minutes_to_expire' => 60
             ]
         ]);
     }
