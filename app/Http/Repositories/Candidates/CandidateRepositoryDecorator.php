@@ -23,7 +23,7 @@ class CandidateRepositoryDecorator extends BaseCache implements CandidateReposit
      */
     public function getAll(): Collection|array
     {
-        return $this->cache::remember($this->key, self::TTL, function () {
+        return $this->cache::remember("{$this->key}s", self::TTL, function () {
             return $this->repository->getAll();
         });
     }
@@ -34,7 +34,7 @@ class CandidateRepositoryDecorator extends BaseCache implements CandidateReposit
      */
     public function getById(int $id): Candidate|Model|null
     {
-        return $this->cache::remember($this->key, self::TTL, function () use ($id) {
+        return $this->cache::tags([$this->key])->remember($this->key . ':' . $id, self::TTL, function () use ($id) {
             return $this->repository->getById($id);
         });
     }
@@ -46,6 +46,7 @@ class CandidateRepositoryDecorator extends BaseCache implements CandidateReposit
     public function save(CandidateData $candidateData): Candidate|Model|null
     {
         $this->forget($this->key);
+        $this->forget("{$this->key}s");
         return $this->repository->save($candidateData);
     }
 }
