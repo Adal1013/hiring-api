@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Collection;
 use Spatie\Permission\Models\Role;
 
 /**
@@ -18,12 +19,22 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        $roleIds = Role::pluck('id')->toArray();
+        $roleNames = Role::pluck('name')->toArray();
         return [
             'username' => $this->faker->userName,
             'password' => bcrypt('hiring'),
             'is_active' => 1,
-            'role_id' => $this->faker->randomElement($roleIds)
+            'role' => $this->faker->randomElement($roleNames)
         ];
+    }
+
+    /**
+     * @return Factory
+     */
+    public function configure(): Factory
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->assignRole($user->role);
+        });
     }
 }

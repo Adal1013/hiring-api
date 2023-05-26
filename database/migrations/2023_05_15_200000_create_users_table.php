@@ -19,9 +19,8 @@ return new class extends Migration
             $table->string('password');
             $table->dateTime('last_login')->nullable();
             $table->boolean('is_active');
-            $table->unsignedBigInteger('role_id');
+            $table->enum('role', ['manager', 'agent']);
             $table->timestamps();
-            $table->foreign('role_id')->references('id')->on('roles');
         });
     }
 
