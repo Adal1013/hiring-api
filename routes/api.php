@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Candidates\CandidateController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,4 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v1'], function () {
     Route::post('/auth', [AuthController::class, 'login']);
+    Route::group(['prefix' => 'auth', 'middleware' => 'jwt.verify'], function () {
+        Route::get('/lead/{id}', [CandidateController::class, 'show'])->middleware('role:manager|agent');
+        Route::get('/leads', [CandidateController::class, 'index'])->middleware('role:manager|agent');
+        Route::post('/lead', [CandidateController::class, 'store'])->middleware('role:manager');
+    });
 });
