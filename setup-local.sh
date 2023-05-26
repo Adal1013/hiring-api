@@ -32,5 +32,5 @@ docker exec hiring-api php artisan migrate --seed
 echo '----- Starting Application'
 
 docker-compose kill
-docker exec -d hiring-api php artisan serve --host=0.0.0.0 --port=8001
 docker-compose up -d
+docker exec -d hiring-api php artisan serve --host=0.0.0.0 --port=8000
