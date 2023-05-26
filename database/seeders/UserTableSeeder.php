@@ -20,24 +20,25 @@ class UserTableSeeder extends Seeder
             [
                 'username' => 'adal123',
                 'is_active' => 1,
-                'role_id' => Role::where('name', 'manager')->first()->id,
+                'role' => 'manager',
             ],
             [
                 'username' => 'jose123',
                 'is_active' => 1,
-                'role_id' => Role::where('name', 'agent')->first()->id,
+                'role' => 'agent',
             ],
             [
                 'username' => 'italo123',
                 'is_active' => 0,
-                'role_id' => Role::where('name', 'agent')->first()->id,
+                'role' => 'agent',
             ],
         ];
         foreach ($users as $user) {
-            User::updateOrCreate(
+            $user = User::updateOrCreate(
                 ['username' => $user['username']],
                 $user
             );
+            $user->assignRole($user['role']);
         }
     }
 }
