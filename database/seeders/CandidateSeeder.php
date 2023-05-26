@@ -30,6 +30,12 @@ class CandidateSeeder extends Seeder
                 'owner' => $owner->id,
                 'created_by' => $creator->id,
             ],
+            [
+                'name' => 'Juan Ariza',
+                'source' => 'Computrabajo',
+                'owner' => $creator->id,
+                'created_by' => $creator->id,
+            ],
         ];
         foreach ($candidates as $candidate) {
             Candidate::create($candidate);
