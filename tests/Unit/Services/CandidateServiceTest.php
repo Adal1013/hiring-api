@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Services;
 
+use App\Exceptions\GeneralException;
 use App\Http\DataTransferObjects\Candidates\CandidateData;
 use App\Http\Services\Candidates\CandidateService;
 use App\Models\Candidate;
@@ -46,9 +47,33 @@ class CandidateServiceTest extends TestCase
      */
     public function test_get_by_id()
     {
+        $user = User::factory()->create();
+        $this->actingAs($user);
         $candidate = Candidate::factory()->create();
+        $candidate->owner = $user->id;
+        $candidate->save();
         $foundCandidate = $this->candidateService->getById($candidate->id);
         $this->assertEquals($candidate->id, $foundCandidate->id);
+    }
+
+    /**
+     * A basic unit test example.
+     *
+     * @return voidhp
+     */
+    public function test_get_by_id_failed()
+    {
+        $this->expectException(GeneralException::class);
+        $user = User::factory()->create();
+        $user->removeRole('manager');
+        $user->assignRole('agent');
+        $this->actingAs($user);
+        $user2 = User::factory()->create();
+        $candidate = Candidate::factory()->create();
+        $candidate->owner = $user2->id;
+        $candidate->save();
+        $this->candidateService->getById($candidate->id);
+        //$this->assertEquals($candidate->id, $foundCandidate->id);
     }
 
     /**
@@ -60,13 +85,13 @@ class CandidateServiceTest extends TestCase
     {
         $creator = User::factory()->create();
         $owner = User::factory()->create();
-        $cadidateData = [
+        $candidateData = [
             'name' => 'Mi candidato',
             'source' => 'Fotocasa',
             'owner' => $owner->id,
             'createdBy' => $creator->id
         ];
-        $newCandidate = $this->candidateService->create(CandidateData::from($cadidateData));
+        $newCandidate = $this->candidateService->create(CandidateData::from($candidateData));
         $this->assertInstanceOf(Candidate::class, $newCandidate);
     }
 }

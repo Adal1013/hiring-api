@@ -8,6 +8,7 @@ use App\Http\Repositories\Candidates\CandidateRepository;
 use App\Models\Candidate;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Exception;
@@ -32,10 +33,24 @@ class CandidateServiceImpl implements CandidateService
     /**
      * @param int $id
      * @return Candidate|Model|null
+     * @throws GeneralException
      */
     public function getById(int $id): Candidate|Model|null
     {
-        return $this->candidateRepository->getById($id);
+        try {
+            $candidate = $this->candidateRepository->getById($id);
+            if (Auth::user()->hasRole('agent') && Auth::user()->id !== $candidate->owner) {
+                $logMessage = 'Sin autorización';
+                $errorMessage = 'Unauthorized.';
+                $errorCode = 401;
+                throw new GeneralException($errorMessage, $errorCode);
+            }
+            return $candidate;
+        } catch (Exception $exception) {
+            Log::error('Error: ' . $exception->getMessage());
+            Log::error($logMessage ?? ('No existe el candidato: ' . $id));
+            throw new GeneralException($errorMessage ?? 'No lead found.', $errorCode ?? 404);
+        }
     }
 
     /**
