@@ -1,0 +1,194 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "L5 OpenApi documentación de Hiring-api",
+        "description": "L5 Swagger OpenApi description para hiring.",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8001"
+        }
+    ],
+    "paths": {
+        "/api/v1/auth": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Genera un token de autenticación",
+                "description": "Login to the application with a valid username.\nAccede a la aplicación con un usuario valido.",
+                "operationId": "login",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "username",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "adal123"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Token generado exitosamente."
+                    },
+                    "401": {
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "description": "Server error."
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/leads": {
+            "get": {
+                "tags": [
+                    "Candidates"
+                ],
+                "summary": "Obtener todos los candidatos",
+                "description": "Display all resources.\nMostramos todos los registros de candidatos.",
+                "operationId": "getCandidates",
+                "responses": {
+                    "200": {
+                        "description": "Listar Candidatos"
+                    },
+                    "401": {
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "description": "Server error."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/auth/lead/{id}": {
+            "get": {
+                "tags": [
+                    "Candidates"
+                ],
+                "summary": "Obtener un candidato por su ID",
+                "description": "Display the specified resource.\nMostramos el regitro especifico solicitado.",
+                "operationId": "getCandidate",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del candidato",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Candidato encontrado"
+                    },
+                    "401": {
+                        "description": "Unauthorized."
+                    },
+                    "404": {
+                        "description": "Candidato no encontrado"
+                    },
+                    "500": {
+                        "description": "Server error."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/auth/lead": {
+            "post": {
+                "tags": [
+                    "Candidates"
+                ],
+                "summary": "Crea un candidato",
+                "description": "Store a newly created resource in storage.\nCrea un nuevo registro de candidatos.",
+                "operationId": "createCandidate",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "source",
+                                    "owner"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Adalberto Avila"
+                                    },
+                                    "source": {
+                                        "type": "string",
+                                        "example": "Linkedin"
+                                    },
+                                    "owner": {
+                                        "type": "integer",
+                                        "example": "2"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Candidato creado exitosamente."
+                    },
+                    "401": {
+                        "description": "Unauthorized."
+                    },
+                    "422": {
+                        "description": "Validation Error."
+                    },
+                    "500": {
+                        "description": "Server error."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "description": "Login with email and password to get the authentication token",
+                "name": "Token based Based",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
